@@ -28,6 +28,7 @@ import org.junit.Rule
 import org.junit.Test
 
 class MainViewModelTest {
+    @ExperimentalCoroutinesApi
     @get:Rule
     val coroutineScope = MainCoroutineScopeRule()
     @get:Rule
