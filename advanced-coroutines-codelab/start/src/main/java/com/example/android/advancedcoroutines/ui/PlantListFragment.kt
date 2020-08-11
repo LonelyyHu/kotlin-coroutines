@@ -17,6 +17,7 @@
 package com.example.android.advancedcoroutines.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -85,6 +86,7 @@ class PlantListFragment : Fragment() {
 //        }
 
         viewModel.plantsUsingFlow.observe(viewLifecycleOwner) { plants ->
+            Log.wtf("PlantListFragment", "subscribeUi => flow observe")
             adapter.submitList(plants)
         }
     }

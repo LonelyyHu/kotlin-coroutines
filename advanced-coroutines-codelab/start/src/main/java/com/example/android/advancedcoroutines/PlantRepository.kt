@@ -16,7 +16,6 @@
 
 package com.example.android.advancedcoroutines
 
-import android.util.Log
 import androidx.annotation.AnyThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
@@ -26,11 +25,8 @@ import com.example.android.advancedcoroutines.util.CacheOnSuccess
 import com.example.android.advancedcoroutines.utils.ComparablePair
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.withContext
 
 /**
@@ -54,10 +50,11 @@ class PlantRepository private constructor(
 
     private val customSortFlow = flow {
         emit(plantsListSortOrderCache.getOrAwait())
-    }.onStart {
-        emit(listOf())
-        delay(3000)
     }
+//        .onStart {
+////        emit(listOf())
+//            delay(3000)
+//        }
 
     /**
      * Fetch a list of [Plant]s from the database.
@@ -74,11 +71,13 @@ class PlantRepository private constructor(
     val plantsFlow: Flow<List<Plant>>
         get() = plantDao
             .getPlantsFlow()
-            .combine(customSortFlow) { plants, sortOrder ->
-                Log.wtf("PlantRepository", "RUN !!!!!!")
-                plants.applySort(sortOrder)
-            }
-
+//            .combine(customSortFlow) { plants, sortOrder ->
+//                Log.wtf(
+//                    "PlantRepository",
+//                    "RUN !!!!!! sortOrder length: ${sortOrder.size}, plants length: ${plants.size}"
+//                )
+//                plants.applySort(sortOrder)
+//            }
 
 
     private fun List<Plant>.applySort(customSortOrder: List<String>): List<Plant> {
